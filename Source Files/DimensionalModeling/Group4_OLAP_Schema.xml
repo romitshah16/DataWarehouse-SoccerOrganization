@@ -1,0 +1,52 @@
+<Schema name="New Schema1">
+  <Dimension type="StandardDimension" visible="true" name="Event Type">
+    <Hierarchy name="Event Type" visible="true" hasAll="true" primaryKey="event_type_key">
+      <Table name="dim_event_type">
+      </Table>
+      <Level name="period_desc" visible="true" table="dim_event_type" column="period_desc" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Team Type">
+    <Hierarchy name="team_type" visible="true" hasAll="true" primaryKey="team_type_key">
+      <Table name="dim_team_type">
+      </Table>
+      <Level name="h_team_gen" visible="true" table="dim_team_type" column="h_team_gen" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="v_team_gen" visible="true" table="dim_team_type" column="v_team_gen" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Game Date Gen">
+    <Hierarchy name="game_date_gen" visible="true" hasAll="true" primaryKey="game_date_gen_key">
+      <Table name="dim_game_date_gen">
+      </Table>
+      <Level name="game_date_gen" visible="true" table="dim_game_date_gen" column="game_date_gen" type="Date" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Player">
+    <Hierarchy name="player" visible="true" hasAll="true" primaryKey="player_key">
+      <Table name="dim_player">
+      </Table>
+      <Level name="player_name_1_gen" visible="true" table="dim_player" column="player_name_1_gen" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="player_name_2_gen" visible="true" table="dim_player" column="player_name_2_gen" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Group4_Cube" visible="true" cache="true" enabled="true">
+    <Table name="fact_event_location">
+    </Table>
+    <DimensionUsage source="Event Type" name="Event Type" visible="true" foreignKey="event_type_key">
+    </DimensionUsage>
+    <DimensionUsage source="Team Type" name="Team Type" visible="true" foreignKey="team_type_key">
+    </DimensionUsage>
+    <DimensionUsage source="Game Date Gen" name="Game Date Gen" visible="true" foreignKey="game_date_gen_key">
+    </DimensionUsage>
+    <DimensionUsage source="Player" name="Player" visible="true" foreignKey="player_key">
+    </DimensionUsage>
+    <Measure name="count" column="event_type_key" aggregator="count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
